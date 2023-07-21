@@ -20,11 +20,9 @@
 // in stopTImer we call cancelAnimation Frame with the params cancelId  to stop the time
 
 // we can get the eleemnts on the screen using hte DOM methods and update them to equal the 
-{/* <span class="timer__minutes">00</span>
-      :
-      <span class="timer__seconds">00</span>
-      :
-      <span class="timer__milliseconds">000</span> */}
+
+// we need to account fof the fact that when we stop and start our timer resets
+
 let cancelId;
 const $millis = document.getElementsByClassName("timer__milliseconds")[0];
 const $seconds = document.getElementsByClassName("timer__seconds")[0];
@@ -38,12 +36,23 @@ function startTimer () {
 
 function updateTimer () {
     // 
-    const timeElapsed = Date.now() - startTime;
-    const millis = timeElapsed % 1000;
-    const seconds = (Math.floor(timeElapsed / 1000));
-    const minutes = (Math.floor(timeElapsed ))
-    $millis.innerHTML = millis;
-    $seconds.innerHTML = seconds % 60;
+    timeElapsed = Date.now() - startTime + 55000;
+    let millis = timeElapsed % 1000;
+    millis = millis + "";
+    const millisText = millis.padStart(3, 0);
+
+    let seconds = Math.floor(timeElapsed / 1000);
+    let minutes = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    let secondsText = seconds + "";
+    secondsText = secondsText.padStart(2, 0);
+
+    minutes = minutes + "";
+    minutesText = minutes.padStart(2, 0);
+
+    $millis.innerHTML = millisText;
+    $seconds.innerHTML = secondsText;
+    $minutes.innerHTML = minutesText;
     cancelId = requestAnimationFrame(updateTimer)
 }
 
