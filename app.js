@@ -29,6 +29,7 @@ const $seconds = document.getElementsByClassName("timer__seconds")[0];
 const $minutes = document.getElementsByClassName("timer__minutes")[0];
 console.log($millis.length, $seconds, $minutes);
 let startTime;
+let pausedTime = 0; 
 function startTimer () {
     startTime = Date.now();
     requestAnimationFrame(updateTimer)
@@ -36,7 +37,7 @@ function startTimer () {
 
 function updateTimer () {
     // 
-    timeElapsed = Date.now() - startTime + 55000;
+    timeElapsed = pausedTime + Date.now() - startTime
     let millis = timeElapsed % 1000;
     millis = millis + "";
     const millisText = millis.padStart(3, 0);
@@ -57,7 +58,8 @@ function updateTimer () {
 }
 
 function stopTimer () {
-    console.log("here we are sage mode naruto")
+    console.log("here we are sage mode naruto");
+    pausedTime = pausedTime + Date.now() - startTime;
     cancelAnimationFrame(cancelId)
 }
 
