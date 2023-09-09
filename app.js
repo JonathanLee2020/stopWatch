@@ -8,6 +8,7 @@ let pausedTime = 0;
 let currentlyRunning = false;
 let alreadyStopped = true;
 let alreadyReset = true;
+
 function startTimer () {
     alreadyReset = false;
     if (currentlyRunning == true) {
